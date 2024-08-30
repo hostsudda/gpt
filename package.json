@@ -1,0 +1,16 @@
+{
+ "name": "chat-app",
+  "version": "1.0.0",
+  "description": "A chat application with emoji panel and AI asissten.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+   "os-utils": "^0.0.9"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
