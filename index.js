@@ -4,7 +4,7 @@ const os = require('os');
 const osUtils = require('os-utils');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080; // Use 8080, or any other Cloudflare-allowed port if PORT is not set
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
