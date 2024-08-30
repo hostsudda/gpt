@@ -2,9 +2,11 @@ const express = require('express');
 const path = require('path');
 const os = require('os');
 const osUtils = require('os-utils');
+const fetch = require('node-fetch');
+const { apiKey } = require('./config');
 
 const app = express();
-const port = process.env.PORT || 8080; // Use 8080, or any other Cloudflare-allowed port if PORT is not set
+const port = process.env.PORT || 8080; // Use 8080 or any other Cloudflare-allowed port if PORT is not set
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,6 +60,20 @@ function formatUptime(seconds) {
     return `${days} days, ${hours} hours, ${minutes} minutes, ${secs} seconds`;
 }
 
+// API endpoint to handle chat requests
+app.get('/api/chat', async (req, res) => {
+    const userMessage = req.query.message;
+    const apiUrl = `https://prabath-md-api.up.railway.app/api/gptv4?q=${encodeURIComponent(q)}&apikey=${apikey}`;
+    
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch AI response' });
+    }
+});
+
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
